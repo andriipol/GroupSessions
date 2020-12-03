@@ -7,8 +7,9 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class User {
+public class Session {
     @Id
     private long id;
     private String name;
+    private String location;
 }
