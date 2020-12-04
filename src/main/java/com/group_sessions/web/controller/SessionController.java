@@ -2,8 +2,6 @@ package com.group_sessions.web.controller;
 
 import com.group_sessions.entity.Session;
 import com.group_sessions.service.SessionService;
-import com.group_sessions.service.UserService;
-import com.group_sessions.web.dto.UserData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +22,18 @@ public class SessionController {
 
     @GetMapping(value = "")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<List<Session>> getUserById() {
-        return ok(sessionService.getUserById());
+    public ResponseEntity<List<Session>> getAllSessions() {
+        return ok(sessionService.getAllSessions());
     }
 
     @GetMapping(value = "/id/{sessionId}")
-    public String getSession(@PathVariable Long sessionId) {
-        return "Session ID " +sessionId + "You should be authorized";
+    public ResponseEntity<Session> getSessionById(@PathVariable Long sessionId) {
+        return ok(sessionService.getSessionByID(sessionId));
+    }
+
+    @GetMapping(value = "/habit/{habitId}")
+    public ResponseEntity<List<Session>> getSessionsByHabit(@PathVariable Long habitId) {
+        return ok(sessionService.getSessionByHabit(habitId));
     }
 
     @GetMapping(value = "/create")
