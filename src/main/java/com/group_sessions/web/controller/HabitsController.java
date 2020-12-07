@@ -1,7 +1,8 @@
 package com.group_sessions.web.controller;
 
+import com.group_sessions.entity.Habit;
 import com.group_sessions.service.HabitService;
-import com.group_sessions.web.dto.HabitData;
+import com.group_sessions.web.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,13 @@ public class HabitsController {
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<HabitData> getUserById(@PathVariable("id") long id) {
-        return ok(habitService.getUserById(id));
+    public ResponseEntity<HabitData> getHabitById(@PathVariable("id") long id) {
+        return ok(habitService.getHabitById(id));
+    }
+
+    @GetMapping(value = "/all")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Iterable<Habit>> getAllHabits() {
+        return ok(habitService.getAllHabits());
     }
 }

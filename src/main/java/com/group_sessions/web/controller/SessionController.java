@@ -2,13 +2,17 @@ package com.group_sessions.web.controller;
 
 import com.group_sessions.entity.Session;
 import com.group_sessions.service.SessionService;
+import com.group_sessions.web.dto.SessionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -22,13 +26,13 @@ public class SessionController {
 
     @GetMapping(value = "")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<List<Session>> getAllSessions() {
+    public ResponseEntity<List<SessionDTO>> getAllSessions() {
         return ok(sessionService.getAllSessions());
     }
 
     @GetMapping(value = "/id/{sessionId}")
     public ResponseEntity<Session> getSessionById(@PathVariable Long sessionId) {
-        return ok(sessionService.getSessionByID(sessionId));
+        return ok(sessionService.getSessionById(sessionId));
     }
 
     @GetMapping(value = "/habit/{habitId}")
@@ -36,8 +40,15 @@ public class SessionController {
         return ok(sessionService.getSessionByHabit(habitId));
     }
 
-    @GetMapping(value = "/create")
-    public String createSession() {
-        return "You have needed permission for creation";
+    @PostMapping(value = "/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> createSession(@RequestBody Session sessionData) throws URISyntaxException {
+        Session session = sessionService.createSession(sessionData);
+        return created(new URI("/id/" + session.getId())).build();
+    }
+
+    @DeleteMapping(value = "/delete/{sessionId}")
+    public void removeSession(@PathVariable Long sessionId) {
+        sessionService.deleteSession(sessionId);
     }
 }
