@@ -1,8 +1,8 @@
 package com.group_sessions.web.controller;
 
 import com.group_sessions.entity.Session;
+import com.group_sessions.entity.SessionDTO;
 import com.group_sessions.service.SessionService;
-import com.group_sessions.web.dto.SessionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +42,8 @@ public class SessionController {
 
     @PostMapping(value = "/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> createSession(@RequestBody Session sessionData) throws URISyntaxException {
-        Session session = sessionService.createSession(sessionData);
+    public ResponseEntity<Void> createSession(@RequestBody SessionDTO sessionDTO) throws URISyntaxException {
+        Session session = sessionService.createSession(sessionDTO);
         return created(new URI("/id/" + session.getId())).build();
     }
 

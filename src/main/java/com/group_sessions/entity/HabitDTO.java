@@ -1,4 +1,4 @@
-package com.group_sessions.web.dto;
+package com.group_sessions.entity;
 
 import com.group_sessions.entity.Habit;
 import lombok.Data;
@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class HabitData {
+public class HabitDTO {
     private long id;
     private String title;
 
-    public HabitData(Habit habit){
+    public HabitDTO(Habit habit){
         this.id = habit.getId();
         this.title = habit.getTitle();
     }

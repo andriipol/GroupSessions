@@ -77,7 +77,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
                 .csrf()
                 .disable().authorizeRequests()
                 .mvcMatchers("/api/sessions").access("#oauth2.hasScope('create:sessions')")
-                .mvcMatchers("/api/public").permitAll()
+                .mvcMatchers("/api/habits/*").permitAll()
                 .antMatchers("/api/private-scoped").access("#oauth2.hasScope('read:messages')")
                 .mvcMatchers("/api/sessions/create").access("#oauth2.hasScope('create:sessions')")
 
