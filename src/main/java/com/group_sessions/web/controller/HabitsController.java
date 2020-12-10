@@ -1,7 +1,6 @@
 package com.group_sessions.web.controller;
 
 import com.group_sessions.entity.Habit;
-import com.group_sessions.entity.HabitDTO;
 import com.group_sessions.service.HabitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class HabitsController {
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<HabitDTO> getHabitById(@PathVariable("id") long id) {
+    public ResponseEntity<Habit> getHabitById(@PathVariable("id") long id) {
         return ok(habitService.getHabitById(id));
     }
 

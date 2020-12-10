@@ -16,6 +16,4 @@ public class Habit {
     private long id;
     private String title;
     private String summary;
-//    @OneToMany(cascade = ALL, mappedBy = "habit")
-//    private List<Session> sessions;
 }
