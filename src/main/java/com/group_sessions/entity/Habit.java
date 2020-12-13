@@ -13,6 +13,7 @@ import static javax.persistence.CascadeType.ALL;
 @Data
 public class Habit {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
     private String summary;

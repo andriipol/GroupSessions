@@ -5,6 +5,7 @@ import com.group_sessions.entity.Session;
 import com.group_sessions.entity.SessionDTO;
 import com.group_sessions.repository.HabitRepository;
 import com.group_sessions.repository.SessionRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -26,8 +27,10 @@ public class SessionService {
         return sessionRepository.findAll().stream().map(SessionDTO::new).collect(Collectors.toList());
     }
 
-    public Session getSessionById(Long sessionId) {
-        return sessionRepository.findById(sessionId).orElseThrow();
+    public SessionDTO getSessionById(Long sessionId) {
+        Session session = sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Session not found by id " + sessionId));
+        return new SessionDTO(session);
     }
 
     public List<Session> getSessionByHabit(Long habitId) {
@@ -47,7 +50,7 @@ public class SessionService {
 
 
         Habit habit = habitRepository.findById(sessionDTO.getHabit_id())
-                .orElseThrow(() -> new EntityNotFoundException("Habit not found by id " + sessionDTO.getHabit_id()));
+                .orElseThrow(() -> new ResourceNotFoundException("Habit not found by id " + sessionDTO.getHabit_id()));
         session.setHabit(habit);
 
         return sessionRepository.save(session);

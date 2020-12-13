@@ -31,7 +31,8 @@ public class SessionController {
     }
 
     @GetMapping(value = "/id/{sessionId}")
-    public ResponseEntity<Session> getSessionById(@PathVariable Long sessionId) {
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<SessionDTO> getSessionById(@PathVariable Long sessionId) {
         return ok(sessionService.getSessionById(sessionId));
     }
 
