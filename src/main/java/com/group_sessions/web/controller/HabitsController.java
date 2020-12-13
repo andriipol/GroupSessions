@@ -43,7 +43,7 @@ public class HabitsController {
     }
 
     @DeleteMapping(value = "/delete/{habitId}")
-    public void removeSession(@PathVariable Long habitId) {
+    public void removeHabit(@PathVariable Long habitId) {
         habitService.deleteHabit(habitId);
     }
 }
