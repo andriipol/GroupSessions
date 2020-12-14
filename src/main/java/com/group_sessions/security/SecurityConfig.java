@@ -20,6 +20,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
                 .csrf()
                 .disable().authorizeRequests()
                 .mvcMatchers("/api/sessions/create").access("#oauth2.hasScope('create:sessions')")
+                .mvcMatchers("/api/sessions").access("#oauth2.hasScope('create:sessions')")
                 .mvcMatchers("/api/sessions/id/*").access("#oauth2.hasScope('create:sessions')")
                 .mvcMatchers("/api/habits/*").permitAll()
                 .anyRequest().permitAll().and().cors();
