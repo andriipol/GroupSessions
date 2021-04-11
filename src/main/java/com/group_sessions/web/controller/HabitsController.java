@@ -1,7 +1,7 @@
 package com.group_sessions.web.controller;
 
+import com.group_sessions.dto.HabitDTO;
 import com.group_sessions.entity.Habit;
-import com.group_sessions.entity.HabitDTO;
 import com.group_sessions.service.HabitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,12 +1,10 @@
 package com.group_sessions.service;
 
+import com.group_sessions.dto.HabitDTO;
 import com.group_sessions.entity.Habit;
-import com.group_sessions.entity.HabitDTO;
 import com.group_sessions.repository.HabitRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class HabitService {

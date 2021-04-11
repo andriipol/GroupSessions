@@ -1,8 +1,10 @@
 package com.group_sessions.web.controller;
 
+import com.group_sessions.dto.SessionDTO;
+import com.group_sessions.dto.ZoomMeetingObjectDTO;
 import com.group_sessions.entity.Session;
-import com.group_sessions.entity.SessionDTO;
 import com.group_sessions.service.SessionService;
+import com.group_sessions.service.ZoomMeetingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +21,11 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping(value = "/api/sessions", produces = APPLICATION_JSON_VALUE)
 public class SessionController {
     private SessionService sessionService;
+    private ZoomMeetingService zoomMeetingService;
 
-    public SessionController(SessionService sessionService) {
+    public SessionController(SessionService sessionService, ZoomMeetingService zoomMeetingService) {
         this.sessionService = sessionService;
+        this.zoomMeetingService = zoomMeetingService;
     }
 
     @GetMapping(value = "")
@@ -46,6 +50,16 @@ public class SessionController {
     public ResponseEntity<Void> createSession(@RequestBody SessionDTO sessionDTO) throws URISyntaxException {
         Session session = sessionService.createSession(sessionDTO);
         return created(new URI("/id/" + session.getId())).build();
+    }
+
+    @PostMapping(value = "/id/{sessionId}/createZoomMeeting")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> createZoomMeeting(@PathVariable Long sessionId) {
+        SessionDTO sessionDTO = sessionService.getSessionById(sessionId);
+        ZoomMeetingObjectDTO zoomMeetingObjectDTO = new ZoomMeetingObjectDTO(sessionDTO);
+        zoomMeetingObjectDTO = zoomMeetingService.createMeeting(zoomMeetingObjectDTO);
+        sessionService.updateSessionUrl(sessionId, zoomMeetingObjectDTO.getJoin_url());
+        return ok(zoomMeetingObjectDTO.getHost_email());
     }
 
     @DeleteMapping(value = "/delete/{sessionId}")

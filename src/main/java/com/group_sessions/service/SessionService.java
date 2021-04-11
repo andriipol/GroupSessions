@@ -1,8 +1,8 @@
 package com.group_sessions.service;
 
+import com.group_sessions.dto.SessionDTO;
 import com.group_sessions.entity.Habit;
 import com.group_sessions.entity.Session;
-import com.group_sessions.entity.SessionDTO;
 import com.group_sessions.repository.HabitRepository;
 import com.group_sessions.repository.SessionRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -47,7 +47,8 @@ public class SessionService {
         session.setLocation(sessionDTO.getLocation());
         session.setOrganizer(sessionDTO.getOrganizer());
         session.setSummary(sessionDTO.getSummary());
-
+        session.setHost_email(sessionDTO.getHost_email());
+        session.setJoin_url(sessionDTO.getJoin_url());
 
         Habit habit = habitRepository.findById(sessionDTO.getHabit_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found by id " + sessionDTO.getHabit_id()));
@@ -60,5 +61,12 @@ public class SessionService {
         Session session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new EntityNotFoundException("Session not found by id " + sessionId));
         sessionRepository.delete(session);
+    }
+
+    public void updateSessionUrl(Long sessionId, String hostMail){
+        Session session = sessionRepository.findById(sessionId).
+                orElseThrow(() -> new ResourceNotFoundException("Session not found by id " + sessionId));
+        session.setJoin_url(hostMail);
+        sessionRepository.save(session);
     }
 }

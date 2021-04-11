@@ -19,10 +19,15 @@ public class SessionDTO {
     private String habit_title;
     private int capacity;
     private String organizer;
+    private String host_email;
+    private String join_url;
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
     @Temporal(TemporalType.TIMESTAMP)
     private Date end_date;
+    private Integer duration;
+
+
 
     public SessionDTO(Session session) {
         this.id = session.getId();
@@ -34,6 +39,9 @@ public class SessionDTO {
         this.organizer = session.getOrganizer();
         this.start_date = session.getStart_date();
         this.end_date = session.getEnd_date();
+        this.host_email = session.getHost_email();
+        this.duration = session.getDuration();
+        this.join_url = session.getJoin_url();
 
         if (session.getHabit() != null) {
             this.habit_id = session.getHabit().getId();
