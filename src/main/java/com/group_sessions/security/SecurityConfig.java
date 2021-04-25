@@ -23,6 +23,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
                 .mvcMatchers("/api/sessions").access("#oauth2.hasScope('create:sessions')")
                 .mvcMatchers("/api/sessions/id/*").access("#oauth2.hasScope('create:sessions')")
                 .mvcMatchers("/api/habits/*").permitAll()
+                .mvcMatchers("/api/sessions/geolocation").permitAll()
                 .anyRequest().permitAll().and().cors();
     }
 

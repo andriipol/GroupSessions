@@ -24,13 +24,15 @@ public class Session {
     private int capacity;
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date end_date;
     private Integer duration;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "habit_id")
     private Habit habit;
+
+    @OneToOne
+    @JoinColumn(name = "geolocation_id")
+    private Geolocation geolocation;
 
 //    @OneToMany(cascade = ALL, mappedBy = "habit")
 //    private List<Participant> participants;

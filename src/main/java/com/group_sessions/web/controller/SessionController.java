@@ -1,7 +1,9 @@
 package com.group_sessions.web.controller;
 
+import com.group_sessions.dto.GeolocationAreaDto;
 import com.group_sessions.dto.SessionDTO;
 import com.group_sessions.dto.ZoomMeetingObjectDTO;
+import com.group_sessions.entity.Geolocation;
 import com.group_sessions.entity.Session;
 import com.group_sessions.service.SessionService;
 import com.group_sessions.service.ZoomMeetingService;
@@ -38,6 +40,12 @@ public class SessionController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<SessionDTO> getSessionById(@PathVariable Long sessionId) {
         return ok(sessionService.getSessionById(sessionId));
+    }
+
+    @PostMapping(value = "/geolocation")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<List<SessionDTO>> getSessionByGeoLocation(@RequestBody GeolocationAreaDto geolocationAreaDto) {
+        return ok(sessionService.getSessionByGeoLocation(geolocationAreaDto));
     }
 
     @GetMapping(value = "/habit/{habitId}")

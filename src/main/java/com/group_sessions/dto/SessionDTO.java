@@ -27,6 +27,9 @@ public class SessionDTO {
     private Date end_date;
     private Integer duration;
 
+    private double longitude;
+    private double latitude;
+    private String address;
 
 
     public SessionDTO(Session session) {
@@ -38,7 +41,6 @@ public class SessionDTO {
         this.capacity = session.getCapacity();
         this.organizer = session.getOrganizer();
         this.start_date = session.getStart_date();
-        this.end_date = session.getEnd_date();
         this.host_email = session.getHost_email();
         this.duration = session.getDuration();
         this.join_url = session.getJoin_url();
@@ -46,6 +48,12 @@ public class SessionDTO {
         if (session.getHabit() != null) {
             this.habit_id = session.getHabit().getId();
             this.habit_title = session.getHabit().getTitle();
+        }
+
+        if (session.getGeolocation() != null) {
+            this.latitude = session.getGeolocation().getLatitude();
+            this.longitude = session.getGeolocation().getLongitude();
+            this.address = session.getGeolocation().getAddress();
         }
     }
 }
